@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Mari </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e0e0e0; /* Lighter text for dark background/video */
+            text-align: center;
+            position: relative;
+            min-height: 100vh; /* Ensure body is at least full height */
+            overflow-y: auto; /* Enable vertical scrolling for the body */
+            background-color: #000; /* Fallback background color if video fails */
+        }
+
+        /* --- Overlay Styling --- */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+            z-index: 100;
+            opacity: 1;
+            transition: opacity 1s ease-out;
+        }
+
+        #overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #overlay p {
+            margin-top: 20px;
+            font-size: 0.6em;
+            opacity: 0.8;
+        }
+
+        /* --- Video Background Styling --- */
+        #background-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            object-fit: cover;
+            background-size: cover;
+        }
+
+        /* --- Main Content Wrapper Styling --- */
+        #main-content-wrapper {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            box-sizing: border-box;
+            /* Added min-width to prevent poem container from wrapping too much */
+            min-width: 320px; /* Adjust if your poem lines get very long */
+        }
+
+        /* --- Poem Container Styling --- */
+        #poem-container {
+            font-size: 2.5em;
+            text-align: center;
+            white-space: nowrap;
+            line-height: 1.4;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 0 15px rgba(255, 255, 255, 0.2);
+            padding: 20px;
+        }
+
+        .poem-line {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .poem-line.visible {
+            opacity: 1;
+        }
+
+        /* --- Audio Player Styling --- */
+        #lullaby-song-player {
+            width: 80%;
+            max-width: 400px;
+            margin-top: 30px;
+            filter: invert(90%) sepia(10%) saturate(100%) hue-rotate(200deg) brightness(1.2);
+        }
+
+        /* --- Final Image Styling (MODIFIED) --- */
+        #final-image {
+            opacity: 0; /* Initially hidden */
+            transition: opacity 2s ease-in-out; /* Smooth fade in */
+            max-width: 90%; /* Responsive image size */
+            max-height: 90vh; /* Allow it to take up more vertical space */
+            object-fit: contain; /* Ensure image fits without cropping */
+
+            /* --- ABSOLUTE CENTERING --- */
+            position: fixed; /* Position relative to the viewport */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Adjusts for the image's own size */
+            z-index: 50; /* Needs to be above main content (z-index: 1) but below overlay (z-index: 100) */
+            pointer-events: none; /* Make it unclickable initially */
+
+            /* Removed margin-top and margin-bottom as they conflict with fixed positioning */
+        }
+
+        #final-image.visible {
+            opacity: 1;
+            pointer-events: auto; /* Make it clickable when visible */
+        }
+
+        /* --- Optional: Responsive for Mobile (Replace video with image) --- */
+        @media (max-width: 768px) {
+            #background-video {
+                display: none;
+            }
+            body {
+                background: url('path/to/your/mobile-fallback-image.jpg') no-repeat center center fixed;
+                background-size: cover;
+            }
+            #poem-container {
+                font-size: 1.8em;
+                background-color: rgba(0, 0, 0, 0.6);
+                border-radius: 10px;
+                padding: 15px;
+            }
+            #final-image {
+                max-width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="overlay">
+        <h1>Click to Enter Mari</h1>
+        <p>(Tap anywhere to start the suprise,Love.)</p>
+    </div>
+
+    <video autoplay muted loop playsinline id="background-video" poster="path/to/your/video-poster.jpg">
+        <source src="mylivewallpapers.com-Makoto-Yuki-Persona-3.mp4" type="video/mp4">
+        <source src="mylivewallpapers.com-Makoto-Yuki-Persona-3.webm" type="video/webm">
+        Your browser does not support the video tag.
+    </video>
+
+    <img id="final-image" src="10d18988d0c2b64b4f27c03b96310d12.jpg">
+
+    <div id="main-content-wrapper">
+        <div id="poem-container">
+            <span class="poem-line">Within the inner heart I plead</span>
+            <span class="poem-line">For you to talk to me</span>
+            <span class="poem-line">I want to hear all the good and bad</span>
+            <span class="poem-line">The new stories you have</span>
+            <span class="poem-line">As I drift across the sky</span>
+            <span class="poem-line">The hour hand turns high</span>
+            <span class="poem-line">So goodnight</span>
+            <span class="poem-line">Let me sing a lullaby, love</span>
+            <span class="poem-line">I'll be seeing you, baby</span>
+            <span class="poem-line">Sorry for doing that mistake my love, I promise not to again.</span>
+            <span class="poem-line">I will learn from my mistakes.</span>
+            <span class="poem-line">I Love You.</span>
+        </div>
+
+        <audio id="lullaby-song-player" controls>
+            <source src="special.mp4" type="video/mp4">
+            Your browser does not support the audio element.
+        </audio>
+    </div> <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const lines = document.querySelectorAll('.poem-line');
+            const song = document.getElementById('lullaby-song-player');
+            const video = document.getElementById('background-video');
+            const overlay = document.getElementById('overlay');
+            const finalImage = document.getElementById('final-image');
+            let index = 0;
+
+            const lineTimings = [
+                { displayDuration: 1600, delayBeforeNextLine: 1000 }, // "Within the inner heart I plead"
+                { displayDuration: 1500, delayBeforeNextLine: 1000 }, // "For you to talk to me"
+                { displayDuration: 1500, delayBeforeNextLine: 1200 }, // "I want to hear all the good and bad"
+                { displayDuration: 1500, delayBeforeNextLine: 1500 }, // "The new stories you have"
+                { displayDuration: 1200, delayBeforeNextLine: 1000 }, // "As I drift across the sky"
+                { displayDuration: 1300, delayBeforeNextLine: 1000 }, // "The hour hand turns high"
+                { displayDuration: 700,  delayBeforeNextLine: 800 },  // "So goodnight"
+                { displayDuration: 4800, delayBeforeNextLine: 1200 }, // "Let me sing a lullaby, love"
+                { displayDuration: 5000, delayBeforeNextLine: 800 },  // "I'll be seeing you, baby" (ADJUSTED DELAY for new lines)
+                // NEW LINES
+                { displayDuration: 3000, delayBeforeNextLine: 1500 }, // "Sorry for doing that mistake my love, I promise not to again"
+                { displayDuration: 2500, delayBeforeNextLine: 1000 }, // "I will learn from my mistakes"
+                { displayDuration: 2000, delayBeforeNextLine: 0 }    // "I Love You" (No delay after this, as image comes next)
+            ];
+
+            // Function to start the poem animation
+            function animatePoem() {
+                if (index < lines.length) {
+                    const currentLine = lines[index];
+                    const timings = lineTimings[index];
+
+                    currentLine.classList.add('visible');
+
+                    setTimeout(() => {
+                        currentLine.classList.remove('visible');
+                        index++;
+                        if (index < lines.length) {
+                            setTimeout(animatePoem, timings.delayBeforeNextLine);
+                        } else {
+                            // All poem lines are done, now show the image
+                            // Also hide the poem container once text fades
+                            const poemContainer = document.getElementById('poem-container');
+                            if (poemContainer) {
+                                poemContainer.style.opacity = 0; // Fade out poem container
+                                poemContainer.style.transition = 'opacity 1s ease-out';
+                                poemContainer.style.pointerEvents = 'none'; // Make it unclickable
+                            }
+
+                            setTimeout(() => {
+                                if (finalImage) {
+                                    finalImage.classList.add('visible');
+                                    // Optionally, you might want to pause/stop the video/audio here
+                                    // video.pause();
+                                    // song.pause();
+                                }
+                            }, 2000); // Delay before image appears after the last text fades out
+                        }
+                    }, timings.displayDuration);
+                }
+            }
+
+            // Function to start both video and song (triggered by user click)
+            const startMediaAndExperience = () => {
+                video.play().catch(error => {
+                    console.warn("Video play prevented:", error);
+                });
+
+                song.play().catch(error => {
+                    console.warn("Audio play prevented:", error);
+                });
+
+                animatePoem();
+                overlay.classList.add('hidden');
+            };
+
+            overlay.addEventListener('click', startMediaAndExperience);
+        });
+    </script>
+
+</body>
+</html>
